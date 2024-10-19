@@ -1,5 +1,6 @@
 import { input, confirm } from "@inquirer/prompts";
 import TicketTypeRequest from "./pairtest/lib/TicketTypeRequest.js";
+import TicketService from "./pairtest/TicketService.js";
 
 async function app() {
   console.log("Welcome to cinema ticket booking\n\n");
@@ -41,12 +42,19 @@ async function app() {
   });
 
   const adultRequest = new TicketTypeRequest("ADULT", Number(adult));
-  const childRequest = new TicketTypeRequest("ADULT", Number(child));
-  const infantRequest = new TicketTypeRequest("ADULT", Number(infant));
+  const childRequest = new TicketTypeRequest("CHILD", Number(child));
+  const infantRequest = new TicketTypeRequest("INFANT", Number(infant));
 
-  console.log(adultRequest);
-  console.log(childRequest);
-  console.log(infantRequest);
+  const tickets = new TicketService();
+
+  const response = tickets.purchaseTickets(
+    123456,
+    adultRequest,
+    childRequest,
+    infantRequest
+  );
+
+  console.log(response);
 }
 
 app();
