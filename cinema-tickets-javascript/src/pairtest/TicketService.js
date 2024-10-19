@@ -19,23 +19,22 @@ export default class TicketService {
   }
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
-    try {
-      const ticketCalculation = new TicketCalculation(ticketTypeRequests);
-
-      const result = ticketCalculation.ticketReservation();
-
-      if (!result) {
-        throw new InvalidPurchaseException(
-          "Something went wrong, please try again"
-        );
-      } else {
-        this.seatReservationService.reserveSeat(accountId, result.data.price);
-        this.paymentService.makePayment(accountId, result.data.seats);
-      }
-
-      return result;
-    } catch (error) {
-      console.log(error.message);
+    if (!Number.isInteger(accountId)) {
+      throw new TypeError("accountId must be an integer");
     }
+
+    const ticketCalculation = new TicketCalculation(ticketTypeRequests);
+    const result = ticketCalculation.ticketReservation();
+
+    if (!result) {
+      throw new InvalidPurchaseException(
+        "Something went wrong, please try again"
+      );
+    }
+
+    this.paymentService.makePayment(accountId, result.data.price);
+    this.seatReservationService.reserveSeat(accountId, result.data.seats);
+
+    return result;
   }
 }

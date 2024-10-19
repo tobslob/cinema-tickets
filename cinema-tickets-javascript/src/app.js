@@ -48,7 +48,7 @@ async function app() {
   const tickets = new TicketService();
 
   const response = tickets.purchaseTickets(
-    123456,
+    123456, //could be randomly generated
     adultRequest,
     childRequest,
     infantRequest

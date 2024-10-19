@@ -2,9 +2,9 @@ export default class TicketCalculation {
   ADULT_COST = 25;
   CHILD_COST = 15;
   totalTickets = 0;
-  adultTickets;
-  childTickets;
-  infantTickets;
+  adultTickets = 0;
+  childTickets = 0;
+  infantTickets = 0;
 
   constructor(requests) {
     this.#computeTicket(requests);
