@@ -30,12 +30,12 @@ export default class TicketCalculation {
 
   ticketReservation() {
     if (this.totalTickets < 1 || this.totalTickets > 25) {
-      throw new Error("You cannot book more than 25 tickets per booking.");
+      throw new Error("You cannot book less than 1 or more than 25 tickets per booking.");
     }
 
-    if (this.childTickets + this.infantTickets > this.adultTickets) {
+    if (this.adultTickets === 0) {
       throw new Error(
-        "Child or infant tickets cannot exceed the number of adult tickets purchased."
+        "Child or infant tickets cannot be purchased without an adult ticket purchase."
       );
     }
 
