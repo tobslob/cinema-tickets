@@ -1,6 +1,7 @@
 import { input, confirm } from "@inquirer/prompts";
 import TicketTypeRequest from "./pairtest/lib/TicketTypeRequest.js";
 import TicketService from "./pairtest/TicketService.js";
+import generateAccountNumber from "../utils/generateAccountNumber.js";
 
 async function app() {
   console.log("Welcome to cinema ticket booking\n\n");
@@ -47,8 +48,10 @@ async function app() {
 
   const tickets = new TicketService();
 
+  const accountNumber = generateAccountNumber()
+
   const response = tickets.purchaseTickets(
-    123456, //could be randomly generated
+    accountNumber(),
     adultRequest,
     childRequest,
     infantRequest

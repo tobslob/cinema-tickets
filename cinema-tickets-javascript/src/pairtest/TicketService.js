@@ -19,7 +19,7 @@ export default class TicketService {
   }
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
-    if (!Number.isInteger(accountId)) {
+    if (!Number.isInteger(accountId) || accountId < 1) {
       throw new TypeError("accountId must be an integer");
     }
 
