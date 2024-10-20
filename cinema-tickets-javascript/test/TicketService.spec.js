@@ -2,7 +2,6 @@ import TicketService from "../src/pairtest/TicketService.js";
 import TicketTypeRequest from "../src/pairtest/lib/TicketTypeRequest";
 import TicketPaymentService from "../src/thirdparty/paymentgateway/TicketPaymentService.js";
 import SeatReservationService from "../src/thirdparty/seatbooking/SeatReservationService.js";
-import InvalidPurchaseException from "../src/pairtest/lib/InvalidPurchaseException.js";
 
 import { jest } from "@jest/globals";
 
@@ -40,7 +39,6 @@ describe("TicketService", () => {
     expect(reservationService.reserveSeat).toHaveBeenCalledWith(123456, 3);
   });
 
-  // Validates the error for more than 25 tickets.
   test("should throw an error when more than 25 tickets are requested", () => {
     const adultRequest = new TicketTypeRequest("ADULT", 26);
 
@@ -51,7 +49,6 @@ describe("TicketService", () => {
     );
   });
 
-  // Validates the error when child or infant tickets exceed the number of adult tickets.
   test("should throw an error when child or infant tickets exceed the number of adult tickets", () => {
     const adultRequest = new TicketTypeRequest("ADULT", 1);
     const childRequest = new TicketTypeRequest("CHILD", 2);
@@ -65,7 +62,6 @@ describe("TicketService", () => {
     );
   });
 
-  // Verifies error handling for accountId.
   test("should throw an error if accountId is not an integer", () => {
     const adultRequest = new TicketTypeRequest("ADULT", 2);
 
@@ -74,7 +70,6 @@ describe("TicketService", () => {
     }).toThrowError(new TypeError("accountId must be an integer"));
   });
 
-  // Checks handling of zero tickets.
   test("should handle zero tickets gracefully", () => {
     const adultRequest = new TicketTypeRequest("ADULT", 0);
 
